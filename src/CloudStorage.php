@@ -8,6 +8,12 @@ namespace putyourlightson\blitzcloud;
 use Craft;
 use putyourlightson\blitz\drivers\storage\YiiCacheStorage;
 
+/**
+ * The cache storage method for Craft Cloud, which extends the Yii cache storage
+ * and disabled the ability to compress cached values.
+ *
+ * @property-read null|string $settingsHtml
+ */
 class CloudStorage extends YiiCacheStorage
 {
     /**
@@ -21,13 +27,16 @@ class CloudStorage extends YiiCacheStorage
     /**
      * @inheritdoc
      */
-    public bool $compressCachedValues = false;
+    public function getSettingsHtml(): ?string
+    {
+        return null;
+    }
 
     /**
      * @inheritdoc
      */
-    public function getSettingsHtml(): ?string
+    public function canCompressCachedValues(): bool
     {
-        return null;
+        return false;
     }
 }
