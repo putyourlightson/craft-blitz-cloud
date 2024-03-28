@@ -1,4 +1,4 @@
-# Release Notes for Blitz Cloud Purger
+# Release Notes for Blitz Cloud Adapter
 
 ## 1.0.0 - Unreleased
 

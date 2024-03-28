@@ -3,9 +3,9 @@
 
 <p align="center"><img width="130" src="https://raw.githubusercontent.com/putyourlightson/craft-blitz-cloud/v1/src/icon.svg"></p>
 
-# Blitz Cloud Purger Plugin for Craft CMS on Craft Cloud
+# Blitz Cloud Adapter Plugin for Craft CMS on Craft Cloud
 
-The Cloud Purger plugin allows the [Blitz](https://putyourlightson.com/plugins/blitz) plugin for [Craft CMS](https://craftcms.com/) to intelligently purge pages cached by Craft Cloud.
+The Cloud Adapter plugin allows the [Blitz](https://putyourlightson.com/plugins/blitz) plugin for [Craft CMS](https://craftcms.com/) to integrate with Craft Cloud.
 
 ## Documentation
 
@@ -21,17 +21,10 @@ This plugin requires [Craft CMS](https://craftcms.com/) 4.6.0 or later.
 
 ## Installation
 
-To install the plugin, search for “Blitz Cloud Purger” in the Craft Plugin Store, or install manually using composer.
+To install the plugin, search for “Blitz Cloud Adapter” in the Craft Plugin Store, or install manually using composer.
 
 ```shell
 composer require putyourlightson/craft-blitz-cloud
-```
-
-You can then select the purger and settings either in the control panel or in `config/blitz.php`.
-
-```php
-// The purger type to use.
-'cachePurgerType' => 'putyourlightson\blitzcloud\CloudPurger',
 ```
 
 ---

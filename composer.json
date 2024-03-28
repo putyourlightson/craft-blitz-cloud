@@ -1,6 +1,6 @@
 {
   "name": "putyourlightson/craft-blitz-cloud",
-  "description": "Craft Cloud purger for the Blitz plugin.",
+  "description": "Craft Cloud adapter for the Blitz plugin.",
   "version": "1.0.0",
   "type": "craft-plugin",
   "homepage": "https://putyourlightson.com/plugins/blitz",
@@ -15,6 +15,7 @@
   ],
   "require": {
     "php": "^8.0.2",
+    "craftcms/cloud": "^1.44",
     "craftcms/cms": "^4.6",
     "putyourlightson/craft-blitz": "^4.0"
   },
@@ -50,7 +51,7 @@
     "issues": "https://github.com/putyourlightson/craft-blitz-cloud/issues"
   },
   "extra": {
-    "name": "Blitz Cloud Purger",
+    "name": "Blitz Cloud Adapter",
     "handle": "blitz-cloud",
     "developer": "PutYourLightsOn",
     "developerUrl": "https://putyourlightson.com/",
