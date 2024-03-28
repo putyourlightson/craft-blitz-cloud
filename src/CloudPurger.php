@@ -8,8 +8,11 @@ namespace putyourlightson\blitzcloud;
 use Craft;
 use craft\cloud\HeaderEnum;
 use craft\cloud\Helper;
+use craft\events\RegisterTemplateRootsEvent;
+use craft\web\View;
 use putyourlightson\blitz\drivers\purgers\BaseCachePurger;
 use putyourlightson\blitz\helpers\SiteUriHelper;
+use yii\base\Event;
 
 class CloudPurger extends BaseCachePurger
 {
@@ -25,6 +28,26 @@ class CloudPurger extends BaseCachePurger
     public static function displayName(): string
     {
         return Craft::t('blitz', 'Craft Cloud Purger');
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function init(): void
+    {
+        Event::on(View::class, View::EVENT_REGISTER_CP_TEMPLATE_ROOTS,
+            function(RegisterTemplateRootsEvent $event) {
+                $event->roots['blitz-cloud'] = __DIR__ . '/templates/';
+            }
+        );
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function purgeAll(callable $setProgressHandler = null, bool $queue = true): void
+    {
+        $this->sendRequest(['/']);
     }
 
     /**
@@ -67,6 +90,30 @@ class CloudPurger extends BaseCachePurger
                 call_user_func($setProgressHandler, $count, $total, $progressLabel);
             }
         }
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function test(): bool
+    {
+        if (Helper::isCraftCloud()) {
+            return true;
+        }
+
+        $this->addError('test', 'This purger can only be used on Craft Cloud.');
+
+        return false;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getSettingsHtml(): ?string
+    {
+        return Craft::$app->getView()->renderTemplate('blitz-cloud/settings', [
+            'purger' => $this,
+        ]);
     }
 
     /**
