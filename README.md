@@ -3,9 +3,9 @@
 
 <p align="center"><img width="130" src="https://raw.githubusercontent.com/putyourlightson/craft-blitz-cloud/v1/src/icon.svg"></p>
 
-# Blitz Cloud Adapter Plugin for Craft CMS on Craft Cloud
+# Blitz Cloud Adapter Plugin for Craft Cloud
 
-The Cloud Adapter plugin allows the [Blitz](https://putyourlightson.com/plugins/blitz) plugin for [Craft CMS](https://craftcms.com/) to integrate with Craft Cloud.
+The Cloud Adapter plugin allows the [Blitz](https://putyourlightson.com/plugins/blitz) plugin for [Craft CMS](https://craftcms.com/) to integrate with [Craft Cloud](https://craftcms.com/cloud).
 
 ## Documentation
 
