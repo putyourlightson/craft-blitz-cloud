@@ -61,7 +61,10 @@ class CloudPurger extends BaseCachePurger
             return;
         }
 
-        $this->sendRequest([$site->getBaseUrl()]);
+        $url = $site->getBaseUrl();
+        $prefixes = $this->getPrefixesFromUrls([$url]);
+
+        $this->sendRequest($prefixes);
     }
 
     /**
@@ -78,12 +81,13 @@ class CloudPurger extends BaseCachePurger
             call_user_func($setProgressHandler, $count, $total, $progressLabel);
         }
 
-        $chunkedSiteUris = array_chunk($siteUris, self::MAX_PREFIXES_PER_API_CALL);
+        $urls = SiteUriHelper::getUrlsFromSiteUris($siteUris);
+        $chunkedPrefixes = array_chunk($this->getPrefixesFromUrls($urls), self::MAX_PREFIXES_PER_API_CALL);
 
-        foreach ($chunkedSiteUris as $siteUriChunk) {
-            $this->sendRequest(SiteUriHelper::getUrlsFromSiteUris($siteUriChunk));
+        foreach ($chunkedPrefixes as $prefixes) {
+            $this->sendRequest($prefixes);
 
-            $count = $count + count($siteUriChunk);
+            $count = $count + count($prefixes);
 
             if (is_callable($setProgressHandler)) {
                 $progressLabel = Craft::t('blitz', $label, ['total' => $total]);
@@ -117,15 +121,29 @@ class CloudPurger extends BaseCachePurger
     }
 
     /**
-     * Sends a request to the API.
+     * Returns prefixes (paths) from URLs.
      */
-    private function sendRequest(array $urls): void
+    public function getPrefixesFromUrls(array $urls): array
     {
         $prefixes = [];
+
         foreach ($urls as $url) {
-            $prefixes[] = preg_replace('/^https?:\/\//im', '', $url);
+            $queryString = parse_url($url, PHP_URL_QUERY);
+            $path = parse_url($url, PHP_URL_PATH);
+            $path .= $queryString ? '?' . $queryString : '';
+            $prefixes[] = $path ?: '/';
         }
 
+        return $prefixes;
+    }
+
+    /**
+     * Sends a request to the API.
+     *
+     * @param string[] $prefixes
+     */
+    private function sendRequest(array $prefixes): void
+    {
         Helper::makeGatewayApiRequest([
             HeaderEnum::CACHE_PURGE_PREFIX->value => implode(',', $prefixes),
         ]);

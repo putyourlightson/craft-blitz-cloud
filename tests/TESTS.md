@@ -6,8 +6,8 @@ This document outlines the test specification for the Blitz Cloud plugin.
 
 ## Feature Tests
 
-### [CondenseUrls](pest/Feature/CondenseUrlsTest.php)
+### [Prefixes](pest/Feature/PrefixesTest.php)
 
-_Tests condensing URLs._
+_Tests URL prefixes._
 
-![Pass](https://raw.githubusercontent.com/putyourlightson/craft-generate-test-spec/main/icons/pass.svg) URLs are condensed into a single URL with a wildcard character after the longest common prefix.  
+![Pass](https://raw.githubusercontent.com/putyourlightson/craft-generate-test-spec/main/icons/pass.svg) Prefixes are converted from URLs.  
