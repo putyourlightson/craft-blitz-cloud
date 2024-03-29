@@ -1,13 +1,12 @@
 <?php
 
 /**
- * Tests URL prefixes.
+ * Tests converting URLs to prefixes.
  */
 
-use putyourlightson\blitzcloud\CloudPurger;
+use putyourlightson\blitzcloud\CloudHelper;
 
-test('Prefixes are converted from URLs', function() {
-    $purger = new CloudPurger();
+test('URLs are correctly converted to prefixes', function() {
     $urls = [
         'https://example.com',
         'https://example.com/foo',
@@ -15,7 +14,7 @@ test('Prefixes are converted from URLs', function() {
         'https://example.com/foo/bar/baz?x=1&y=2',
     ];
 
-    expect($purger->getPrefixesFromUrls($urls))
+    expect(CloudHelper::getPrefixesFromUrls($urls))
         ->toBe([
             '/',
             '/foo',

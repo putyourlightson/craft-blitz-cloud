@@ -17,7 +17,7 @@ This plugin requires a free commercial license available through the [Craft Plug
 
 ## Requirements
 
-This plugin requires [Craft CMS](https://craftcms.com/) 4.6.0 or later.
+This plugin requires [Craft CMS](https://craftcms.com/) 4.6.0 or later, [Blitz](https://putyourlightson.com/plugins/blitz) 4.14.2 or later, and [Craft Cloud Extension](https://github.com/craftcms/cloud-extension-yii2/) 1.44 or later.
 
 ## Installation
 

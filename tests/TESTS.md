@@ -1,6 +1,6 @@
 # Test Specification
 
-This document outlines the test specification for the Blitz Cloud plugin.
+This document outlines the test specification for the Blitz Cloud Adapter plugin.
 
 ---
 
@@ -8,6 +8,6 @@ This document outlines the test specification for the Blitz Cloud plugin.
 
 ### [Prefixes](pest/Feature/PrefixesTest.php)
 
-_Tests URL prefixes._
+_Tests converting URLs to prefixes._
 
-![Pass](https://raw.githubusercontent.com/putyourlightson/craft-generate-test-spec/main/icons/pass.svg) Prefixes are converted from URLs.  
+![Pass](https://raw.githubusercontent.com/putyourlightson/craft-generate-test-spec/main/icons/pass.svg) URLs are correctly converted to prefixes.  

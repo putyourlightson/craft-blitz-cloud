@@ -6,16 +6,17 @@
 namespace putyourlightson\blitzcloud;
 
 use Craft;
-use putyourlightson\blitz\drivers\storage\YiiCacheStorage;
+use putyourlightson\blitz\drivers\storage\BaseCacheStorage;
+use putyourlightson\blitz\models\SiteUriModel;
 
 /**
- * The cache storage method for Craft Cloud, which extends the Yii cache storage
- * and disabled the ability to compress cached values.
- *
- * @property-read null|string $settingsHtml
+ * The cache storage method for Craft Cloud essentially is a dummy, since cache
+ * storage is handled by Cloudflare.
  */
-class CloudStorage extends YiiCacheStorage
+class CloudStorage extends BaseCacheStorage
 {
+    use CloudTrait;
+
     /**
      * @inheritdoc
      */
@@ -24,19 +25,20 @@ class CloudStorage extends YiiCacheStorage
         return Craft::t('blitz', 'Cloud Cache Storage');
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function getSettingsHtml(): ?string
+    public function get(SiteUriModel $siteUri): string
     {
-        return null;
+        return '';
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function canCompressCachedValues(): bool
+    public function save(string $value, SiteUriModel $siteUri, int $duration = null, bool $allowEncoding = true): void
     {
-        return false;
+    }
+
+    public function deleteUris(array $siteUris): void
+    {
+    }
+
+    public function deleteAll(): void
+    {
     }
 }
