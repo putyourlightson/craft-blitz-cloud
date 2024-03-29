@@ -16,14 +16,17 @@ class CloudPurger extends BaseCachePurger
     /**
      * @inheritdoc
      */
-    public bool $shouldPurgeAfterRefresh = false;
+    public static function displayName(): string
+    {
+        return Craft::t('blitz', 'Craft Cloud Purger');
+    }
 
     /**
      * @inheritdoc
      */
-    public static function displayName(): string
+    public function shouldPurgeAfterRefresh(): bool
     {
-        return Craft::t('blitz', 'Craft Cloud Purger');
+        return false;
     }
 
     /**
