@@ -35,6 +35,10 @@ class Plugin extends BasePlugin
         $this->registerTemplateRoots();
 
         if (Helper::isCraftCloud()) {
+            if (Craft::$app->getPlugins()->getPlugin('blitz') === null) {
+                return;
+            }
+
             $this->disableBlitzComments();
 
             if (Blitz::$plugin->cachePurger instanceof CloudPurger) {
