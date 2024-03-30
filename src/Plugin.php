@@ -8,10 +8,12 @@ namespace putyourlightson\blitzcloud;
 use Craft;
 use craft\base\Plugin as BasePlugin;
 use craft\cloud\HeaderEnum;
+use craft\cloud\Helper;
 use craft\cloud\StaticCache;
 use craft\events\RegisterComponentTypesEvent;
 use craft\events\RegisterTemplateRootsEvent;
 use craft\web\View;
+use putyourlightson\blitz\Blitz;
 use putyourlightson\blitz\helpers\CacheGeneratorHelper;
 use putyourlightson\blitz\helpers\CachePurgerHelper;
 use putyourlightson\blitz\helpers\CacheStorageHelper;
@@ -27,37 +29,18 @@ class Plugin extends BasePlugin
     {
         parent::init();
 
-        $this->preventCloudPurgeCache();
         $this->registerStorageType();
         $this->registerGeneratorType();
         $this->registerPurgerType();
         $this->registerTemplateRoots();
-    }
 
-    /**
-     * Prevents Cloud from purging the cache by removing the cache purge tag
-     * response header, when appropriate.
-     *
-     * @see StaticCache::addCachePurgeTagsToResponse()
-     */
-    private function preventCloudPurgeCache(): void
-    {
-        // Allow purging via the cache utility.
-        $request = Craft::$app->getRequest();
-        $actionSegments = $request->getIsActionRequest() ? $request->getActionSegments() : null;
-        if ($actionSegments === ['utilities', 'clear-caches-perform-action']) {
-            return;
+        if (Helper::isCraftCloud()) {
+            $this->disableBlitzComments();
+
+            if (Blitz::$plugin->cachePurger instanceof CloudPurger) {
+                $this->preventCloudPurgeCache();
+            }
         }
-
-        Event::on(Response::class, Response::EVENT_AFTER_PREPARE,
-            function(Event $event) {
-                /** @var Response|null $response */
-                $response = $event->sender;
-                $response->getHeaders()->remove(HeaderEnum::CACHE_PURGE_TAG->value);
-            },
-            // Prepend the event, so it is triggered as early as possible.
-            append: false,
-        );
     }
 
     /**
@@ -105,6 +88,46 @@ class Plugin extends BasePlugin
             function(RegisterTemplateRootsEvent $event) {
                 $event->roots['blitz-cloud'] = __DIR__ . '/templates/';
             }
+        );
+    }
+
+    /**
+     * Disables Blitz comments, since Cloud gzip encodes response content before
+     * they would be added.
+     */
+    private function disableBlitzComments(): void
+    {
+        Event::on(Response::class, Response::EVENT_BEFORE_SEND,
+            function() {
+                Blitz::$plugin->settings->outputComments = false;
+                Blitz::$plugin->generateCache->options->outputComments = false;
+            }
+        );
+    }
+
+    /**
+     * Prevents Cloud from purging the cache by removing the cache purge tag
+     * response header, when appropriate.
+     *
+     * @see StaticCache::addCachePurgeTagsToResponse()
+     */
+    private function preventCloudPurgeCache(): void
+    {
+        // Allow purging via the cache utility.
+        $request = Craft::$app->getRequest();
+        $actionSegments = $request->getIsActionRequest() ? $request->getActionSegments() : null;
+        if ($actionSegments === ['utilities', 'clear-caches-perform-action']) {
+            return;
+        }
+
+        Event::on(Response::class, Response::EVENT_AFTER_PREPARE,
+            function(Event $event) {
+                /** @var Response|null $response */
+                $response = $event->sender;
+                $response->getHeaders()->remove(HeaderEnum::CACHE_PURGE_TAG->value);
+            },
+            // Prepend the event, so it is triggered as early as possible.
+            append: false,
         );
     }
 }
