@@ -17,7 +17,7 @@ class CloudHelper
     private const MAX_PREFIXES_PER_API_CALL = 30;
 
     /**
-     * Returns a prefix (paths) from a URL.
+     * Returns a prefix from a URL.
      */
     public static function getPrefixFromUrl(string $url): string
     {
@@ -29,7 +29,7 @@ class CloudHelper
     }
 
     /**
-     * Returns prefixes (paths) from URLs.
+     * Returns prefixes from URLs.
      */
     public static function getPrefixesFromUrls(array $urls): array
     {
@@ -51,30 +51,22 @@ class CloudHelper
     }
 
     /**
-     * Purges one or more URLs.
+     * Purges the provided URLs.
      *
-     * @param string|string[] $urls
+     * @param string[] $urls
      */
-    public static function purgeUrls(string|array $urls): void
+    public static function purgeUrls(array $urls): void
     {
-        if (!is_array($urls)) {
-            $urls = [$urls];
-        }
-
         self::sendPurgeRequest(self::getPrefixesFromUrls($urls));
     }
 
     /**
-     * Sends a purge request to the API.
+     * Sends a purge request to the API for the provided prefixes.
      *
-     * @param string|string[] $prefixes
+     * @param string[] $prefixes
      */
-    public static function sendPurgeRequest(string|array $prefixes): void
+    public static function sendPurgeRequest(array $prefixes): void
     {
-        if (!is_array($prefixes)) {
-            $prefixes = [$prefixes];
-        }
-
         Helper::makeGatewayApiRequest([
             HeaderEnum::CACHE_PURGE_PREFIX->value => implode(',', $prefixes),
         ]);

@@ -34,7 +34,7 @@ class CloudPurger extends BaseCachePurger
      */
     public function purgeAll(callable $setProgressHandler = null, bool $queue = true): void
     {
-        CloudHelper::sendPurgeRequest('/');
+        CloudHelper::sendPurgeRequest(['/']);
     }
 
     /**
@@ -48,7 +48,7 @@ class CloudPurger extends BaseCachePurger
             return;
         }
 
-        CloudHelper::purgeUrls($site->getBaseUrl());
+        CloudHelper::purgeUrls([$site->getBaseUrl()]);
     }
 
     /**

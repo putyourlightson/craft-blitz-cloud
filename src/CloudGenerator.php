@@ -39,16 +39,15 @@ class CloudGenerator extends HttpGenerator
 
         if (Blitz::$plugin->settings->shouldClearOnRefresh()) {
             $this->generateUrlsWithProgress($urls, $setProgressHandler, $count, $total);
+        } else {
+            // Chunk the URLs and purge them before generating.
+            $chunkedUrls = CloudHelper::getChunked($urls);
+            foreach ($chunkedUrls as $urls) {
+                CloudHelper::purgeUrls($urls);
 
-            return;
-        }
-
-        $chunkedUrls = CloudHelper::getChunked($urls);
-
-        foreach ($chunkedUrls as $urls) {
-            CloudHelper::purgeUrls($urls);
-
-            $this->generateUrlsWithProgress($urls, $setProgressHandler, $count, $total);
+                $this->generateUrlsWithProgress($urls, $setProgressHandler, $count, $total);
+                $count += count($urls);
+            }
         }
     }
 }
