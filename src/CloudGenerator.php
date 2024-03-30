@@ -24,7 +24,7 @@ class CloudGenerator extends HttpGenerator
      */
     public static function displayName(): string
     {
-        return Craft::t('blitz', 'Cloud Cache Generator');
+        return Craft::t('blitz', 'Craft Cloud Generator');
     }
 
     /**

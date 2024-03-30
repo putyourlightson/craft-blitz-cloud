@@ -43,7 +43,8 @@ class Plugin extends BasePlugin
     private function preventCloudPurgeCache(): void
     {
         // Allow purging via the cache utility.
-        $actionSegments = Craft::$app->getRequest()->getActionSegments();
+        $request = Craft::$app->getRequest();
+        $actionSegments = $request->getIsActionRequest() ? $request->getActionSegments() : null;
         if ($actionSegments === ['utilities', 'clear-caches-perform-action']) {
             return;
         }
