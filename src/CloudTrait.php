@@ -9,6 +9,9 @@ use Craft;
 use craft\cloud\Helper;
 use craft\helpers\Html;
 
+/**
+ * This trait can be used by components that can only run on Craft Cloud.
+ */
 trait CloudTrait
 {
     /**

@@ -25,7 +25,7 @@ composer require putyourlightson/craft-blitz-cloud
 
 ## Usage
 
-Once installed, you should select the following components in the Blitz plugin settings:
+Once installed, the following components should be selected in the Blitz plugin settings:
 
 - **Cache Storage**: `Craft Cloud Storage`
 - **Cache Generator**: `Craft Cloud Generator`
