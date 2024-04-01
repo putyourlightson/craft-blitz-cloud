@@ -7,10 +7,6 @@
 
 The Cloud Adapter plugin allows the [Blitz](https://putyourlightson.com/plugins/blitz) plugin for [Craft CMS](https://craftcms.com/) to integrate with [Craft Cloud](https://craftcms.com/cloud).
 
-## Documentation
-
-Read the documentation at [putyourlightson.com/plugins/blitz »](https://putyourlightson.com/plugins/blitz#reverse-proxy-purgers)
-
 ## License
 
 This plugin requires a free commercial license available through the [Craft Plugin Store](https://plugins.craftcms.com/blitz-cloud).
@@ -26,6 +22,16 @@ To install the plugin, search for “Blitz Cloud Adapter” in the Craft Plugin 
 ```shell
 composer require putyourlightson/craft-blitz-cloud
 ```
+
+## Usage
+
+Once installed, you should select the following components in the Blitz plugin settings:
+
+- **Cache Storage**: `Craft Cloud Storage`
+- **Cache Generator**: `Craft Cloud Generator`
+- **Reverse Proxy Purger**: `Craft Cloud Purger`
+
+Note that the Blitz Cloud Adapter leverages Cloudflare’s edge cache, meaning that it will only be effective when running on Craft Cloud.
 
 ---
 

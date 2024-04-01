@@ -34,11 +34,7 @@ class Plugin extends BasePlugin
         $this->registerPurgerType();
         $this->registerTemplateRoots();
 
-        if (Helper::isCraftCloud()) {
-            if (Craft::$app->getPlugins()->getPlugin('blitz') === null) {
-                return;
-            }
-
+        if ($this->isBlitzOnCloud()) {
             $this->disableBlitzComments();
 
             if (Blitz::$plugin->cachePurger instanceof CloudPurger) {
@@ -93,6 +89,15 @@ class Plugin extends BasePlugin
                 $event->roots['blitz-cloud'] = __DIR__ . '/templates/';
             }
         );
+    }
+
+    /**
+     * Returns whether Blitz is installed and Cloud is enabled.
+     */
+    private function isBlitzOnCloud(): bool
+    {
+        return Helper::isCraftCloud()
+            && Craft::$app->getPlugins()->getPlugin('blitz') !== null;
     }
 
     /**
