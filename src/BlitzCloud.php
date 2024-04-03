@@ -6,7 +6,7 @@
 namespace putyourlightson\blitzcloud;
 
 use Craft;
-use craft\base\Plugin as BasePlugin;
+use craft\base\Plugin;
 use craft\cloud\HeaderEnum;
 use craft\cloud\Helper;
 use craft\cloud\StaticCache;
@@ -20,7 +20,7 @@ use putyourlightson\blitz\helpers\CacheStorageHelper;
 use yii\base\Event;
 use yii\web\Response;
 
-class Plugin extends BasePlugin
+class BlitzCloud extends Plugin
 {
     /**
      * @inheritdoc
@@ -131,7 +131,7 @@ class Plugin extends BasePlugin
 
         Event::on(Response::class, Response::EVENT_AFTER_PREPARE,
             function(Event $event) {
-                /** @var Response|null $response */
+                /** @var Response $response */
                 $response = $event->sender;
                 $response->getHeaders()->remove(HeaderEnum::CACHE_PURGE_TAG->value);
             },

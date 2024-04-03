@@ -57,6 +57,6 @@
     "developerUrl": "https://putyourlightson.com/",
     "documentationUrl": "https://github.com/putyourlightson/craft-blitz-cloud",
     "changelogUrl": "https://raw.githubusercontent.com/putyourlightson/craft-blitz-cloud/v1/CHANGELOG.md",
-    "class": "putyourlightson\\blitzcloud\\Plugin"
+    "class": "putyourlightson\\blitzcloud\\BlitzCloud"
   }
 }

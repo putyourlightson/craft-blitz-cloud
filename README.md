@@ -5,7 +5,7 @@
 
 # Blitz Cloud Adapter Plugin for Craft Cloud
 
-The Cloud Adapter plugin allows the [Blitz](https://putyourlightson.com/plugins/blitz) plugin for [Craft CMS](https://craftcms.com/) to integrate with [Craft Cloud](https://craftcms.com/cloud).
+The Blitz Cloud Adapter allows the [Blitz](https://putyourlightson.com/plugins/blitz) plugin for [Craft CMS](https://craftcms.com/) to work with sites running on [Craft Cloud](https://craftcms.com/cloud).
 
 ## License
 
