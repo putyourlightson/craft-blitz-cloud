@@ -8,7 +8,6 @@ namespace putyourlightson\blitzcloud;
 use Craft;
 use craft\base\Plugin;
 use craft\cloud\HeaderEnum;
-use craft\cloud\Helper;
 use craft\cloud\StaticCache;
 use craft\events\RegisterComponentTypesEvent;
 use craft\events\RegisterTemplateRootsEvent;
@@ -23,23 +22,25 @@ use yii\web\Response;
 class BlitzCloud extends Plugin
 {
     /**
+     * @var BlitzCloud
+     */
+    public static BlitzCloud $plugin;
+
+    /**
      * @inheritdoc
      */
     public function init(): void
     {
         parent::init();
+        self::$plugin = $this;
 
         $this->registerStorageType();
         $this->registerGeneratorType();
         $this->registerPurgerType();
         $this->registerTemplateRoots();
 
-        if ($this->isBlitzOnCloud()) {
-            $this->disableBlitzComments();
-
-            if (Blitz::$plugin->cachePurger instanceof CloudPurger) {
-                $this->preventCloudPurgeCache();
-            }
+        if (Blitz::$plugin->cachePurger instanceof CloudPurger) {
+            $this->preventCloudPurgeCache();
         }
     }
 
@@ -87,29 +88,6 @@ class BlitzCloud extends Plugin
         Event::on(View::class, View::EVENT_REGISTER_CP_TEMPLATE_ROOTS,
             function(RegisterTemplateRootsEvent $event) {
                 $event->roots['blitz-cloud'] = __DIR__ . '/templates/';
-            }
-        );
-    }
-
-    /**
-     * Returns whether Blitz is installed and Cloud is enabled.
-     */
-    private function isBlitzOnCloud(): bool
-    {
-        return Helper::isCraftCloud()
-            && Craft::$app->getPlugins()->getPlugin('blitz') !== null;
-    }
-
-    /**
-     * Disables Blitz comments, since Cloud gzip encodes response content before
-     * they would be added.
-     */
-    private function disableBlitzComments(): void
-    {
-        Event::on(Response::class, Response::EVENT_BEFORE_SEND,
-            function() {
-                Blitz::$plugin->settings->outputComments = false;
-                Blitz::$plugin->generateCache->options->outputComments = false;
             }
         );
     }
