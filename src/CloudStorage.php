@@ -6,14 +6,13 @@
 namespace putyourlightson\blitzcloud;
 
 use Craft;
-use putyourlightson\blitz\drivers\storage\BaseCacheStorage;
-use putyourlightson\blitz\models\SiteUriModel;
+use putyourlightson\blitz\drivers\storage\DummyStorage;
 
 /**
  * The cache storage method for Craft Cloud essentially is a dummy, since cache
  * storage is handled by Cloudflare.
  */
-class CloudStorage extends BaseCacheStorage
+class CloudStorage extends DummyStorage
 {
     use CloudTrait;
 
@@ -25,20 +24,8 @@ class CloudStorage extends BaseCacheStorage
         return Craft::t('blitz', 'Craft Cloud Storage');
     }
 
-    public function get(SiteUriModel $siteUri): ?string
-    {
-        return null;
-    }
-
-    public function save(string $value, SiteUriModel $siteUri, int $duration = null, bool $allowEncoding = true): void
-    {
-    }
-
-    public function deleteUris(array $siteUris): void
-    {
-    }
-
-    public function deleteAll(): void
-    {
-    }
+    /**
+     * @inerhitdoc
+     */
+    public bool $isDummy = false;
 }
