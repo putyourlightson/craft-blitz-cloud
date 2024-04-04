@@ -11,13 +11,13 @@ use craft\cloud\HeaderEnum;
 use craft\cloud\StaticCache;
 use craft\events\RegisterComponentTypesEvent;
 use craft\events\RegisterTemplateRootsEvent;
+use craft\web\Response;
 use craft\web\View;
 use putyourlightson\blitz\Blitz;
 use putyourlightson\blitz\helpers\CacheGeneratorHelper;
 use putyourlightson\blitz\helpers\CachePurgerHelper;
 use putyourlightson\blitz\helpers\CacheStorageHelper;
 use yii\base\Event;
-use yii\web\Response;
 
 class BlitzCloud extends Plugin
 {
@@ -113,8 +113,6 @@ class BlitzCloud extends Plugin
                 $response = $event->sender;
                 $response->getHeaders()->remove(HeaderEnum::CACHE_PURGE_TAG->value);
             },
-            // Prepend the event, so it is triggered as early as possible.
-            append: false,
         );
     }
 }
