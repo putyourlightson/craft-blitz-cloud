@@ -25,9 +25,9 @@ class CloudStorage extends BaseCacheStorage
         return Craft::t('blitz', 'Craft Cloud Storage');
     }
 
-    public function get(SiteUriModel $siteUri): string
+    public function get(SiteUriModel $siteUri): ?string
     {
-        return '';
+        return null;
     }
 
     public function save(string $value, SiteUriModel $siteUri, int $duration = null, bool $allowEncoding = true): void
