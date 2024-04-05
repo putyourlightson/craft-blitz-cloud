@@ -1,7 +1,7 @@
 [![Stable Version](https://img.shields.io/packagist/v/putyourlightson/craft-blitz-cloud?label=stable)]((https://packagist.org/packages/putyourlightson/craft-blitz-cloud))
 [![Total Downloads](https://img.shields.io/packagist/dt/putyourlightson/craft-blitz-cloud)](https://packagist.org/packages/putyourlightson/craft-blitz-cloud)
 
-<p align="center"><img width="130" src="https://raw.githubusercontent.com/putyourlightson/craft-blitz-cloud/v1/src/icon.svg"></p>
+<p align="center"><img width="130" src="https://raw.githubusercontent.com/putyourlightson/craft-blitz-cloud/develop/src/icon.svg"></p>
 
 # Blitz Cloud Adapter Plugin for Craft Cloud
 

@@ -17,7 +17,7 @@
     "php": "^8.0.2",
     "craftcms/cloud": "^1.45",
     "craftcms/cms": "^4.6",
-    "putyourlightson/craft-blitz": "^4.15.0"
+    "putyourlightson/craft-blitz": "^4.15"
   },
   "require-dev": {
     "craftcms/ecs": "dev-main",
