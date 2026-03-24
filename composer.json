@@ -15,7 +15,7 @@
   ],
   "require": {
     "php": "^8.2",
-    "craftcms/cloud": "^2.0",
+    "craftcms/cloud": "^2.0 || ^3.0",
     "craftcms/cms": "^5.0",
     "putyourlightson/craft-blitz": "^5.0"
   },
