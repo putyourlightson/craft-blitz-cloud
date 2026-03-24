@@ -1,7 +1,7 @@
 {
   "name": "putyourlightson/craft-blitz-cloud",
   "description": "Craft Cloud adapter for the Blitz plugin.",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "type": "craft-plugin",
   "homepage": "https://putyourlightson.com/plugins/blitz",
   "license": "proprietary",
