@@ -1,7 +1,7 @@
 {
   "name": "putyourlightson/craft-blitz-cloud",
   "description": "Craft Cloud adapter for the Blitz plugin.",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "type": "craft-plugin",
   "homepage": "https://putyourlightson.com/plugins/blitz",
   "license": "proprietary",
@@ -21,7 +21,8 @@
   },
   "require-dev": {
     "craftcms/ecs": "dev-main",
-    "craftcms/phpstan": "dev-main"
+    "craftcms/phpstan": "dev-main",
+    "phpstan/phpstan": "^2.0"
   },
   "scripts": {
     "phpstan": "phpstan --ansi --memory-limit=1G",

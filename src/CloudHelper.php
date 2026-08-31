@@ -5,8 +5,7 @@
 
 namespace putyourlightson\blitzcloud;
 
-use craft\cloud\HeaderEnum;
-use craft\cloud\Helper;
+use craft\cloud\Module;
 
 class CloudHelper
 {
@@ -67,8 +66,6 @@ class CloudHelper
      */
     public static function sendPurgeRequest(array $prefixes): void
     {
-        Helper::makeGatewayApiRequest([
-            HeaderEnum::CACHE_PURGE_PREFIX->value => implode(',', $prefixes),
-        ]);
+        Module::getInstance()->getStaticCache()->purgeUrlPrefixes(...$prefixes);
     }
 }
